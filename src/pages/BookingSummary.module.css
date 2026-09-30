@@ -1,0 +1,88 @@
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.sectionTitle {
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.info {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.divider {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.seats {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.backButton {
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid #777;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.backButton:hover {
+    background-color: #f2f2f2;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.error {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.errorButton {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+}

@@ -1,0 +1,179 @@
+.page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.title {
+    text-align: center;
+    color: #222;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #222;
+}
+
+.summary p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.amount {
+    color: #e53935;
+    font-size: 24px;
+}
+
+.paymentMethods {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.radioLabel:hover {
+    border-color: #4f46e5;
+}
+
+.paymentBox {
+    text-align: center;
+    padding: 25px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.qrBox {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.merchantUpi {
+    color: #333;
+    font-size: 16px;
+}
+
+.input {
+    width: 100%;
+    max-width: 400px;
+    padding: 13px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 4px rgba(79, 70, 229, 0.2);
+}
+
+.payButton {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.payButton:hover {
+    background: #3730a3;
+}
+
+.payButton:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.failedButton {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.failedButton:hover {
+    background: #b91c1c;
+}
+
+.error {
+    color: #b91c1c;
+    font-weight: 600;
+    background: #fee2e2;
+    padding: 12px;
+    border-radius: 7px;
+    margin-top: 15px;
+}
+
+.success {
+    color: #166534;
+    font-weight: 600;
+    background: #dcfce7;
+    padding: 12px;
+    border-radius: 7px;
+    margin-top: 15px;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 25px 0;
+}
+
+@media (max-width: 600px) {
+    .page {
+        padding: 20px 12px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .paymentMethods {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .amount {
+        font-size: 21px;
+    }
+}

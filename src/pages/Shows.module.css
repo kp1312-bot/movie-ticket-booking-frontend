@@ -1,0 +1,365 @@
+.showsPage {
+    min-height: 100vh;
+
+    background: #f4f4f4;
+
+    padding-bottom: 50px;
+}
+
+
+/* Header */
+
+.header {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #141414,
+            #2b2b2b
+        );
+
+    color: white;
+}
+
+
+.header h1 {
+    margin: 0 0 10px;
+
+    font-size: 34px;
+}
+
+
+.header p {
+    margin: 0 0 20px;
+
+    color: #ccc;
+
+    font-size: 16px;
+}
+
+
+.movieId {
+    display: inline-block;
+
+    padding: 8px 18px;
+
+    border-radius: 20px;
+
+    background: #e50914;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* Main content */
+
+.content {
+    width: 900px;
+    max-width: 90%;
+
+    margin: 40px auto;
+}
+
+
+.content h2 {
+    margin-bottom: 25px;
+
+    color: #222;
+
+    font-size: 25px;
+}
+
+
+/* Shows */
+
+.showContainer {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+.showCard {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 22px 25px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.10);
+
+    transition: 0.3s;
+}
+
+
+.showCard:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Show information */
+
+.showInfo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+/* Date */
+
+.dateBox {
+    width: 130px;
+
+    padding: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #f1f1f1;
+
+    border-left: 4px solid #e50914;
+}
+
+
+.dateBox span {
+    margin-bottom: 5px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+.dateBox strong {
+    color: #222;
+
+    font-size: 15px;
+}
+
+
+/* Details */
+
+.details {
+    display: flex;
+
+    gap: 30px;
+}
+
+
+.details p {
+    margin: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    color: #333;
+
+    font-size: 15px;
+}
+
+
+.details span {
+    color: #777;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* Button */
+
+.selectButton {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #e50914;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.selectButton:hover {
+    background: #c70812;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Loading */
+
+.message {
+    padding: 40px;
+
+    text-align: center;
+
+    color: #666;
+
+    font-size: 17px;
+}
+
+
+/* Error */
+
+.error {
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 7px;
+
+    background: #ffe5e5;
+
+    color: #d00000;
+
+    text-align: center;
+
+    font-weight: bold;
+}
+
+
+/* No shows */
+
+.noShows {
+    padding: 50px 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.noShowsIcon {
+    font-size: 45px;
+
+    margin-bottom: 10px;
+}
+
+
+.noShows h3 {
+    margin: 10px 0;
+
+    color: #333;
+
+    font-size: 22px;
+}
+
+
+.noShows p {
+    color: #777;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 35px 15px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .content {
+        max-width: 94%;
+    }
+
+    .showCard {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 20px;
+
+        padding: 20px;
+    }
+
+    .showInfo {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+    .dateBox {
+        width: auto;
+    }
+
+    .details {
+        justify-content: space-around;
+
+        gap: 10px;
+    }
+
+    .selectButton {
+        width: 100%;
+    }
+
+}
+
+
+/* Small mobile */
+
+@media (max-width: 400px) {
+
+    .details {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+}
