@@ -21,7 +21,7 @@ function Shows() {
                 setError("");
 
                 const response = await axios.get(
-                    "http://127.0.0.1:8000/api/shows/"
+                    "https://movie-ticket-booking-backend-kuxe.onrender.com/api/shows/"
                 );
 
                 console.log("All Shows:", response.data);
@@ -102,6 +102,7 @@ function Shows() {
                     !error &&
                     shows.length === 0 && (
                         <div className={styles.noShows}>
+
                             <div className={styles.noShowsIcon}>
                                 🎭
                             </div>
@@ -114,6 +115,7 @@ function Shows() {
                                 There are no shows available
                                 for this movie.
                             </p>
+
                         </div>
                     )
                 }
@@ -188,3 +190,4 @@ function Shows() {
 }
 
 export default Shows;
+
