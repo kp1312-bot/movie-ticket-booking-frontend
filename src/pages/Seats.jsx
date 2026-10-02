@@ -16,7 +16,7 @@ function Seats() {
     useEffect(() => {
 
         axios
-            .get(`http://127.0.0.1:8000/api/seats/${showId}/`)
+            .get(`https://movie-ticket-booking-ywrj.onrender.com/api/seats/${showId}/`)
             .then((response) => {
 
                 console.log("SHOW ID:", showId);
@@ -48,7 +48,6 @@ function Seats() {
 
             return;
         }
-
 
         setSelectedSeats((previousSeats) => {
 
@@ -84,7 +83,6 @@ function Seats() {
 
             return;
         }
-
 
         // Get selected seat names
         const selectedSeatNames = seats
