@@ -12,6 +12,7 @@ function Home() {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
         const getMovies = async () => {
@@ -22,8 +23,6 @@ function Home() {
                 const response = await axios.get(
                     `${API_URL}/api/movies/`
                 );
-
-                console.log("Movies:", response.data);
 
                 setMovies(response.data);
             } catch (err) {
@@ -41,65 +40,284 @@ function Home() {
         navigate(`/shows/${movieId}`);
     };
 
+    const visibleMovies = showAll
+        ? movies
+        : movies.slice(0, 4);
+
     return (
         <div className={styles.homePage}>
+
             <Navbar />
 
+            {/* ================= HERO ================= */}
+
             <section className={styles.hero}>
-                <h1>Movie Ticket Booking</h1>
-                <p>Book your favorite movie tickets online</p>
+
+                <img
+                    src={`${API_URL}/Media/photo/KGF_Rg67MKX.jpg`}
+                    alt="Movie Ticket Booking"
+                    className={styles.heroPoster}
+                />
+
+                <div className={styles.heroOverlay}></div>
+
+                <div className={styles.heroContent}>
+
+                    <span className={styles.heroSmall}>
+                        WELCOME TO
+                    </span>
+
+                    <h1>Movie Ticket Booking</h1>
+
+                    <p>
+                        Book your favorite movies and enjoy
+                        your show with an easy and simple
+                        online booking experience.
+                    </p>
+
+                    <button
+                        type="button"
+                        onClick={() => {
+                            document
+                                .getElementById("movies")
+                                ?.scrollIntoView({
+                                    behavior: "smooth",
+                                });
+                        }}
+                    >
+                        Explore Movies
+                    </button>
+
+                </div>
+
             </section>
 
-            <section className={styles.movieSection}>
+
+            {/* ================= MOVIES ================= */}
+
+            <section
+                className={styles.movieSection}
+                id="movies"
+            >
+
                 <h2>New Movie Releases</h2>
 
-                {loading && <p>Loading movies...</p>}
+                {loading && (
+                    <p className={styles.statusMessage}>
+                        Loading movies...
+                    </p>
+                )}
 
-                {error && <p>{error}</p>}
+                {error && (
+                    <p className={styles.errorMessage}>
+                        {error}
+                    </p>
+                )}
 
-                {!loading && !error && (
-                    <div className={styles.movieContainer}>
-                        {movies.map((movie) => (
-                            <div
-                                className={styles.movieCard}
-                                key={movie.id}
-                            >
-                                <img
-                                    src={`${API_URL}${movie.poster}`}
-                                    alt={movie.title}
-                                    className={styles.moviePoster}
-                                    onError={(event) => {
-                                        console.log(
-                                            "Image Error:",
-                                            `${API_URL}${movie.poster}`
-                                        );
-                                        event.currentTarget.style.display = "none";
-                                    }}
-                                />
+                {!loading &&
+                    !error &&
+                    movies.length === 0 && (
+                        <p className={styles.statusMessage}>
+                            No movies available.
+                        </p>
+                    )}
 
-                                <div className={styles.movieInfo}>
-                                    <h3>{movie.title}</h3>
+                {!loading &&
+                    !error &&
+                    movies.length > 0 && (
 
-                                    <p>
-                                        {movie.genre} | {movie.language}
-                                    </p>
+                        <>
+                            <div className={styles.movieContainer}>
 
-                                    <p>{movie.description}</p>
+                                {visibleMovies.map((movie) => (
+
+                                    <div
+                                        className={styles.movieCard}
+                                        key={movie.id}
+                                    >
+
+                                        <div
+                                            className={
+                                                styles.posterWrapper
+                                            }
+                                        >
+
+                                            <img
+                                                src={`${API_URL}${movie.poster}`}
+                                                alt={movie.title}
+                                                className={
+                                                    styles.moviePoster
+                                                }
+
+                                                onError={(event) => {
+                                                    event.currentTarget.style.display =
+                                                        "none";
+                                                }}
+                                            />
+
+                                        </div>
+
+
+                                        <div
+                                            className={
+                                                styles.movieInfo
+                                            }
+                                        >
+
+                                            <h3>
+                                                {movie.title}
+                                            </h3>
+
+                                            <p
+                                                className={
+                                                    styles.movieMeta
+                                                }
+                                            >
+                                                {movie.genre} |{" "}
+                                                {movie.language}
+                                            </p>
+
+                                            <p
+                                                className={
+                                                    styles.description
+                                                }
+                                            >
+                                                {movie.description}
+                                            </p>
+
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    handleBookNow(
+                                                        movie.id
+                                                    )
+                                                }
+                                            >
+                                                Book Now
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                ))}
+
+                            </div>
+
+
+                            {/* ================= VIEW ALL ================= */}
+
+                            {movies.length > 4 && (
+
+                                <div
+                                    className={
+                                        styles.viewAllContainer
+                                    }
+                                >
 
                                     <button
                                         type="button"
+                                        className={
+                                            styles.viewAllButton
+                                        }
                                         onClick={() =>
-                                            handleBookNow(movie.id)
+                                            setShowAll(!showAll)
                                         }
                                     >
-                                        Book Now
+                                        {showAll
+                                            ? "Show Less"
+                                            : "View All Movies"}
                                     </button>
+
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+
+                            )}
+
+                        </>
+
+                    )}
+
             </section>
+
+
+            {/* ================= FOOTER ================= */}
+
+            <footer className={styles.footer}>
+
+                <div className={styles.footerContainer}>
+
+                    <div className={styles.footerColumn}>
+
+                        <h3>
+                            🎬 Movie Ticket Booking
+                        </h3>
+
+                        <p>
+                            Book your favorite movies,
+                            select your seats and enjoy
+                            your show.
+                        </p>
+
+                    </div>
+
+
+                    <div className={styles.footerColumn}>
+
+                        <h3>Quick Links</h3>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                document
+                                    .getElementById("movies")
+                                    ?.scrollIntoView({
+                                        behavior: "smooth",
+                                    })
+                            }
+                        >
+                            Movies
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                navigate("/my-bookings")
+                            }
+                        >
+                            My Bookings
+                        </button>
+
+                    </div>
+
+
+                    <div className={styles.footerColumn}>
+
+                        <h3>Contact</h3>
+
+                        <p>
+                            Email: support@movieticket.com
+                        </p>
+
+                        <p>
+                            Available online 24/7
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div className={styles.footerBottom}>
+
+                    <p>
+                        © 2026 Movie Ticket Booking.
+                        All Rights Reserved.
+                    </p>
+
+                </div>
+
+            </footer>
+
         </div>
     );
 }
