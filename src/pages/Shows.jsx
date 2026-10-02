@@ -21,7 +21,7 @@ function Shows() {
                 setError("");
 
                 const response = await axios.get(
-                    "https://movie-ticket-booking-backend-kuxe.onrender.com/api/shows/"
+                    "https://movie-ticket-booking-ywrj.onrender.com/api/shows/"
                 );
 
                 console.log("All Shows:", response.data);
