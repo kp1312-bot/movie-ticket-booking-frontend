@@ -99,8 +99,8 @@ function Home() {
 
                     <img
                         className={styles.heroPoster}
-                        src={`http://127.0.0.1:8000${movies[0].poster}`}
-                        alt={movies[0].title}
+                        src={`http://movie-ticket-booking-ywrj.onrender.com${movie.poster}`}
+                        alt={movies.title}
                     />
 
                 )}
