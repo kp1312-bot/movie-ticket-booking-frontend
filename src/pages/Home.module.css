@@ -12,13 +12,16 @@
 
 
 /* =========================
-   HERO
+   HERO CAROUSEL
 ========================= */
 
 .hero {
     position: relative;
+
     width: 100%;
+
     height: calc(100vh - 70px);
+
     min-height: 650px;
     max-height: 850px;
 
@@ -26,40 +29,73 @@
     align-items: center;
 
     overflow: hidden;
+
+    background: #08080b;
 }
+
+
+/* HERO POSTER */
 
 .heroPoster {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
     height: 100%;
 
     object-fit: cover;
+
     object-position: center;
+
+    animation: heroZoom 5s ease-in-out infinite alternate;
 }
+
+@keyframes heroZoom {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+
+/* DARK OVERLAY */
 
 .heroOverlay {
     position: absolute;
+
     inset: 0;
 
     background:
         linear-gradient(
             90deg,
-            rgba(0, 0, 0, 0.92) 0%,
-            rgba(0, 0, 0, 0.70) 45%,
+            rgba(0, 0, 0, 0.94) 0%,
+            rgba(0, 0, 0, 0.78) 35%,
+            rgba(0, 0, 0, 0.45) 70%,
             rgba(0, 0, 0, 0.25) 100%
         );
+
+    z-index: 1;
 }
+
+
+/* HERO CONTENT */
 
 .heroContent {
     position: relative;
-    z-index: 2;
+
+    z-index: 3;
 
     width: 100%;
+
     max-width: 1250px;
 
     margin: 0 auto;
+
     padding: 60px 30px;
 
     box-sizing: border-box;
@@ -68,50 +104,93 @@
 .heroSmall {
     display: inline-block;
 
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 
     color: #dddddd;
 
-    font-size: 14px;
+    font-size: 13px;
+
     font-weight: 700;
 
     letter-spacing: 3px;
 }
 
 .heroContent h1 {
-    max-width: 650px;
+    max-width: 700px;
 
-    margin: 0 0 18px;
+    margin: 0 0 15px;
 
-    font-size: clamp(42px, 6vw, 72px);
-    line-height: 1.05;
+    font-size: clamp(44px, 6vw, 76px);
+
+    line-height: 1.03;
 
     font-weight: 800;
 }
 
+.heroMeta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    color: #dddddd;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.metaDot {
+    color: #999999;
+}
+
 .heroContent p {
-    max-width: 560px;
+    max-width: 570px;
 
     margin: 0;
 
     color: #d0d0d0;
 
-    font-size: 18px;
+    font-size: 17px;
+
     line-height: 1.7;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
 }
 
-.heroContent button {
-    margin-top: 28px;
 
+/* HERO BUTTONS */
+
+.heroButtons {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 28px;
+}
+
+.heroButtons button {
     padding: 14px 28px;
 
     border: none;
+
     border-radius: 8px;
 
     background: #ffffff;
+
     color: #111111;
 
-    font-size: 16px;
+    font-size: 15px;
+
     font-weight: 700;
 
     cursor: pointer;
@@ -119,9 +198,158 @@
     transition: 0.25s ease;
 }
 
-.heroContent button:hover {
+.heroButtons button:hover {
     background: #dddddd;
+
     transform: translateY(-2px);
+}
+
+.heroButtons .exploreButton {
+    background: rgba(255, 255, 255, 0.10);
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    backdrop-filter: blur(5px);
+}
+
+.heroButtons .exploreButton:hover {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+
+/* =========================
+   SLIDER BUTTONS
+========================= */
+
+.sliderButton {
+    position: absolute;
+
+    z-index: 4;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    color: #ffffff;
+
+    font-size: 38px;
+
+    line-height: 35px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(6px);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sliderButton:hover {
+    background: rgba(255, 255, 255, 0.20);
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+}
+
+.previousButton {
+    left: 25px;
+}
+
+.nextButton {
+    right: 25px;
+}
+
+
+/* =========================
+   SLIDER DOTS
+========================= */
+
+.sliderDots {
+    position: absolute;
+
+    z-index: 4;
+
+    bottom: 28px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.dot,
+.activeDot {
+    width: 9px;
+    height: 9px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        width 0.25s ease,
+        background 0.25s ease;
+}
+
+.dot {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.activeDot {
+    width: 28px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+
+/* HERO LOADING */
+
+.heroLoading {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+.heroLoading h1 {
+    margin: 0 0 12px;
+
+    font-size: 48px;
+}
+
+.heroLoading p {
+    color: #cccccc;
+
+    font-size: 17px;
 }
 
 
@@ -131,6 +359,7 @@
 
 .movieSection {
     width: 100%;
+
     max-width: 1250px;
 
     margin: 0 auto;
@@ -140,10 +369,32 @@
     box-sizing: border-box;
 }
 
+
+/* =========================
+   MOVIE HEADER
+========================= */
+
+.movieHeader {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-bottom: 40px;
+
+    text-align: center;
+}
+
 .movieSection h2 {
-    margin: 0 0 35px;
+    margin: 0;
 
     font-size: 34px;
+
     font-weight: 750;
 }
 
@@ -153,13 +404,139 @@
     display: block;
 
     width: 55px;
+
     height: 4px;
 
-    margin-top: 12px;
+    margin: 12px auto 0;
 
     border-radius: 10px;
 
     background: #ffffff;
+}
+
+
+/* =========================
+   SEARCH BOX
+========================= */
+
+.searchBox {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    height: 52px;
+
+    background: #15151b;
+
+    border: 1px solid #38383f;
+
+    border-radius: 30px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.searchBox:hover {
+    border-color: #55555d;
+}
+
+.searchBox:focus-within {
+    border-color: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.08),
+        0 10px 30px rgba(0, 0, 0, 0.35);
+
+    transform: translateY(-1px);
+}
+
+.searchIcon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 50px;
+
+    color: #aaaaaa;
+
+    font-size: 17px;
+}
+
+.searchBox input {
+    flex: 1;
+
+    width: 100%;
+
+    height: 100%;
+
+    padding: 0 10px 0 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 15px;
+}
+
+.searchBox input::placeholder {
+    color: #77777f;
+}
+
+.clearButton {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 34px;
+
+    height: 34px;
+
+    margin-right: 8px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #29292f;
+
+    color: #bbbbbb;
+
+    font-size: 21px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.clearButton:hover {
+    background: #ffffff;
+
+    color: #111111;
 }
 
 
@@ -170,7 +547,8 @@
 .movieContainer {
     display: grid;
 
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
     gap: 25px;
 }
@@ -191,7 +569,8 @@
 
     border-radius: 14px;
 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
 
     transition:
         transform 0.3s ease,
@@ -204,7 +583,8 @@
 
     border-color: #4a4a52;
 
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.55);
 }
 
 
@@ -216,6 +596,7 @@
     position: relative;
 
     width: 100%;
+
     height: 350px;
 
     overflow: hidden;
@@ -227,6 +608,7 @@
     display: block;
 
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
@@ -253,6 +635,7 @@
     color: #ffffff;
 
     font-size: 20px;
+
     line-height: 1.3;
 }
 
@@ -262,6 +645,7 @@
     color: #a8a8ad;
 
     font-size: 13px;
+
     font-weight: 600;
 }
 
@@ -275,6 +659,7 @@
     color: #c2c2c2;
 
     font-size: 14px;
+
     line-height: 1.55;
 }
 
@@ -291,12 +676,15 @@
     padding: 12px;
 
     border: none;
+
     border-radius: 7px;
 
     background: #ffffff;
+
     color: #111111;
 
     font-size: 15px;
+
     font-weight: 700;
 
     cursor: pointer;
@@ -312,7 +700,68 @@
 
 
 /* =========================
-   VIEW ALL BUTTON
+   NO RESULTS
+========================= */
+
+.noResults {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background: #111116;
+
+    border: 1px solid #29292f;
+
+    border-radius: 14px;
+}
+
+.noResultsIcon {
+    margin-bottom: 15px;
+
+    font-size: 45px;
+}
+
+.noResults h3 {
+    margin: 0 0 8px;
+
+    font-size: 22px;
+}
+
+.noResults p {
+    margin: 0 0 22px;
+
+    color: #999999;
+
+    font-size: 14px;
+}
+
+.noResults button {
+    padding: 11px 24px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.noResults button:hover {
+    background: #dddddd;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   VIEW ALL
 ========================= */
 
 .viewAllContainer {
@@ -333,9 +782,11 @@
     border-radius: 8px;
 
     background: transparent;
+
     color: #ffffff;
 
     font-size: 15px;
+
     font-weight: 700;
 
     cursor: pointer;
@@ -345,6 +796,7 @@
 
 .viewAllButton:hover {
     background: #ffffff;
+
     color: #111111;
 
     border-color: #ffffff;
@@ -396,6 +848,7 @@
 
 .footerContainer {
     width: 100%;
+
     max-width: 1200px;
 
     margin: 0 auto;
@@ -477,7 +930,8 @@
 @media (max-width: 1100px) {
 
     .movieContainer {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
     .posterWrapper {
@@ -494,6 +948,7 @@
 
     .hero {
         height: 650px;
+
         min-height: 600px;
     }
 
@@ -505,12 +960,29 @@
         font-size: 16px;
     }
 
+    .sliderButton {
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 32px;
+    }
+
+    .previousButton {
+        left: 15px;
+    }
+
+    .nextButton {
+        right: 15px;
+    }
+
     .movieSection {
         padding: 55px 25px;
     }
 
     .movieContainer {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
 
         gap: 20px;
     }
@@ -535,6 +1007,7 @@
 
     .hero {
         height: 600px;
+
         min-height: 550px;
     }
 
@@ -542,8 +1015,8 @@
         background:
             linear-gradient(
                 90deg,
-                rgba(0, 0, 0, 0.90),
-                rgba(0, 0, 0, 0.55)
+                rgba(0, 0, 0, 0.93),
+                rgba(0, 0, 0, 0.62)
             );
     }
 
@@ -552,7 +1025,8 @@
     }
 
     .heroSmall {
-        font-size: 12px;
+        font-size: 11px;
+
         letter-spacing: 2px;
     }
 
@@ -560,21 +1034,76 @@
         font-size: 40px;
     }
 
-    .heroContent p {
-        font-size: 15px;
-        line-height: 1.6;
+    .heroMeta {
+        font-size: 12px;
+
+        gap: 7px;
     }
 
-    .heroContent button {
+    .heroContent p {
+        font-size: 15px;
+
+        line-height: 1.6;
+
+        -webkit-line-clamp: 3;
+    }
+
+    .heroButtons {
+        flex-direction: column;
+
+        gap: 10px;
+
+        margin-top: 22px;
+    }
+
+    .heroButtons button {
         width: 100%;
+    }
+
+    .sliderButton {
+        top: auto;
+
+        bottom: 23px;
+
+        transform: none;
+    }
+
+    .sliderButton:hover {
+        transform: scale(1.08);
+    }
+
+    .previousButton {
+        left: 18px;
+    }
+
+    .nextButton {
+        right: 18px;
+    }
+
+    .sliderDots {
+        bottom: 40px;
     }
 
     .movieSection {
         padding: 45px 18px;
     }
 
+    .movieHeader {
+        gap: 20px;
+
+        margin-bottom: 30px;
+    }
+
     .movieSection h2 {
         font-size: 27px;
+    }
+
+    .searchBox {
+        width: 100%;
+
+        max-width: 100%;
+
+        height: 50px;
     }
 
     .movieContainer {
@@ -597,11 +1126,13 @@
 
     .description {
         height: auto;
+
         max-height: 65px;
     }
 
     .viewAllButton {
         width: 100%;
+
         max-width: 300px;
     }
 
@@ -635,12 +1166,25 @@
         font-size: 34px;
     }
 
+    .heroMeta {
+        flex-wrap: wrap;
+    }
+
     .movieSection {
         padding-left: 14px;
+
         padding-right: 14px;
     }
 
     .posterWrapper {
         height: 390px;
+    }
+
+    .searchBox {
+        height: 48px;
+    }
+
+    .searchBox input {
+        font-size: 14px;
     }
 }

@@ -13,6 +13,9 @@ function Home() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [showAll, setShowAll] = useState(false);
+    const [search, setSearch] = useState("");
+
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     useEffect(() => {
         const getMovies = async () => {
@@ -36,202 +39,526 @@ function Home() {
         getMovies();
     }, []);
 
+    /* =========================
+       HERO MOVIES
+    ========================= */
+
+    const heroMovies = movies
+        .filter((movie) => movie.poster)
+        .slice(0, 4);
+
+    /* =========================
+       AUTO SLIDER
+    ========================= */
+
+    useEffect(() => {
+        if (heroMovies.length <= 1) {
+            return;
+        }
+
+        const slider = setInterval(() => {
+            setCurrentSlide((previous) =>
+                (previous + 1) % heroMovies.length
+            );
+        }, 5000);
+
+        return () => clearInterval(slider);
+    }, [heroMovies.length]);
+
+    /* =========================
+       NEXT SLIDE
+    ========================= */
+
+    const nextSlide = () => {
+        if (heroMovies.length === 0) return;
+
+        setCurrentSlide(
+            (previous) =>
+                (previous + 1) % heroMovies.length
+        );
+    };
+
+    /* =========================
+       PREVIOUS SLIDE
+    ========================= */
+
+    const previousSlide = () => {
+        if (heroMovies.length === 0) return;
+
+        setCurrentSlide(
+            (previous) =>
+                (previous - 1 + heroMovies.length) %
+                heroMovies.length
+        );
+    };
+
+    /* =========================
+       BOOK NOW
+    ========================= */
+
     const handleBookNow = (movieId) => {
         navigate(`/shows/${movieId}`);
     };
 
+    /* =========================
+       SEARCH
+    ========================= */
+
+    const filteredMovies = movies.filter((movie) =>
+        movie.title
+            ?.toLowerCase()
+            .includes(search.toLowerCase().trim())
+    );
+
     const visibleMovies = showAll
-        ? movies
-        : movies.slice(0, 4);
+        ? filteredMovies
+        : filteredMovies.slice(0, 4);
+
+    const currentMovie = heroMovies[currentSlide];
 
     return (
         <div className={styles.homePage}>
 
             <Navbar />
 
-            {/* ================= HERO ================= */}
+
+            {/* =========================
+                HERO CAROUSEL
+            ========================= */}
 
             <section className={styles.hero}>
 
-                <img
-                    src={`${API_URL}/Media/photo/KGF_Rg67MKX.jpg`}
-                    alt="Movie Ticket Booking"
-                    className={styles.heroPoster}
-                />
+                {currentMovie ? (
 
-                <div className={styles.heroOverlay}></div>
+                    <>
 
-                <div className={styles.heroContent}>
+                        {/* HERO POSTER */}
 
-                    <span className={styles.heroSmall}>
-                        WELCOME TO
-                    </span>
+                        <img
+                            src={`${API_URL}${currentMovie.poster}`}
+                            alt={currentMovie.title}
+                            className={styles.heroPoster}
+                        />
 
-                    <h1>Movie Ticket Booking</h1>
+                        {/* DARK OVERLAY */}
 
-                    <p>
-                        Book your favorite movies and enjoy
-                        your show with an easy and simple
-                        online booking experience.
-                    </p>
+                        <div className={styles.heroOverlay}></div>
 
-                    <button
-                        type="button"
-                        onClick={() => {
-                            document
-                                .getElementById("movies")
-                                ?.scrollIntoView({
-                                    behavior: "smooth",
-                                });
-                        }}
-                    >
-                        Explore Movies
-                    </button>
 
-                </div>
+                        {/* HERO CONTENT */}
+
+                        <div className={styles.heroContent}>
+
+                            <span className={styles.heroSmall}>
+                                NOW SHOWING
+                            </span>
+
+                            <h1>
+                                {currentMovie.title}
+                            </h1>
+
+                            <div className={styles.heroMeta}>
+
+                                <span>
+                                    {currentMovie.genre}
+                                </span>
+
+                                <span className={styles.metaDot}>
+                                    •
+                                </span>
+
+                                <span>
+                                    {currentMovie.language}
+                                </span>
+
+                                <span className={styles.metaDot}>
+                                    •
+                                </span>
+
+                                <span>
+                                    {currentMovie.duration}
+                                </span>
+
+                            </div>
+
+                            <p>
+                                {currentMovie.description}
+                            </p>
+
+                            <div className={styles.heroButtons}>
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        handleBookNow(
+                                            currentMovie.id
+                                        )
+                                    }
+                                >
+                                    Book Tickets
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className={
+                                        styles.exploreButton
+                                    }
+                                    onClick={() => {
+                                        document
+                                            .getElementById("movies")
+                                            ?.scrollIntoView({
+                                                behavior: "smooth",
+                                            });
+                                    }}
+                                >
+                                    Explore Movies
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* PREVIOUS */}
+
+                        {heroMovies.length > 1 && (
+                            <button
+                                type="button"
+                                className={`${styles.sliderButton} ${styles.previousButton}`}
+                                onClick={previousSlide}
+                                aria-label="Previous movie"
+                            >
+                                ‹
+                            </button>
+                        )}
+
+
+                        {/* NEXT */}
+
+                        {heroMovies.length > 1 && (
+                            <button
+                                type="button"
+                                className={`${styles.sliderButton} ${styles.nextButton}`}
+                                onClick={nextSlide}
+                                aria-label="Next movie"
+                            >
+                                ›
+                            </button>
+                        )}
+
+
+                        {/* SLIDE INDICATORS */}
+
+                        {heroMovies.length > 1 && (
+
+                            <div className={styles.sliderDots}>
+
+                                {heroMovies.map(
+                                    (movie, index) => (
+
+                                        <button
+                                            key={movie.id}
+                                            type="button"
+                                            className={
+                                                index ===
+                                                currentSlide
+                                                    ? styles.activeDot
+                                                    : styles.dot
+                                            }
+                                            onClick={() =>
+                                                setCurrentSlide(
+                                                    index
+                                                )
+                                            }
+                                            aria-label={`Go to ${movie.title}`}
+                                        />
+
+                                    )
+                                )}
+
+                            </div>
+
+                        )}
+
+                    </>
+
+                ) : (
+
+                    /* HERO LOADING */
+
+                    <div className={styles.heroLoading}>
+                        <h1>Movie Ticket Booking</h1>
+
+                        <p>
+                            Book your favorite movies and
+                            enjoy your show.
+                        </p>
+                    </div>
+
+                )}
 
             </section>
 
 
-            {/* ================= MOVIES ================= */}
+            {/* =========================
+                MOVIES
+            ========================= */}
 
             <section
                 className={styles.movieSection}
                 id="movies"
             >
 
-                <h2>New Movie Releases</h2>
+                {/* MOVIE HEADER */}
+
+                <div className={styles.movieHeader}>
+
+                    <h2>
+                        New Movie Releases
+                    </h2>
+
+
+                    {/* SEARCH */}
+
+                    <div className={styles.searchBox}>
+
+                        <span className={styles.searchIcon}>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            placeholder="Search movies..."
+                            value={search}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                setShowAll(false);
+                            }}
+                        />
+
+                        {search && (
+
+                            <button
+                                type="button"
+                                className={styles.clearButton}
+                                onClick={() => {
+                                    setSearch("");
+                                    setShowAll(false);
+                                }}
+                            >
+                                ×
+                            </button>
+
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                {/* LOADING */}
 
                 {loading && (
+
                     <p className={styles.statusMessage}>
                         Loading movies...
                     </p>
+
                 )}
 
+
+                {/* ERROR */}
+
                 {error && (
+
                     <p className={styles.errorMessage}>
                         {error}
                     </p>
+
                 )}
+
+
+                {/* NO MOVIES */}
 
                 {!loading &&
                     !error &&
                     movies.length === 0 && (
+
                         <p className={styles.statusMessage}>
                             No movies available.
                         </p>
+
                     )}
+
+
+                {/* NO SEARCH RESULTS */}
 
                 {!loading &&
                     !error &&
-                    movies.length > 0 && (
+                    movies.length > 0 &&
+                    filteredMovies.length === 0 && (
+
+                        <div className={styles.noResults}>
+
+                            <div className={styles.noResultsIcon}>
+                                🎬
+                            </div>
+
+                            <h3>
+                                No movies found
+                            </h3>
+
+                            <p>
+                                Try searching with another
+                                movie name.
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setSearch("")
+                                }
+                            >
+                                Clear Search
+                            </button>
+
+                        </div>
+
+                    )}
+
+
+                {/* MOVIE CARDS */}
+
+                {!loading &&
+                    !error &&
+                    visibleMovies.length > 0 && (
 
                         <>
-                            <div className={styles.movieContainer}>
 
-                                {visibleMovies.map((movie) => (
+                            <div
+                                className={
+                                    styles.movieContainer
+                                }
+                            >
 
-                                    <div
-                                        className={styles.movieCard}
-                                        key={movie.id}
-                                    >
-
-                                        <div
-                                            className={
-                                                styles.posterWrapper
-                                            }
-                                        >
-
-                                            <img
-                                                src={`${API_URL}${movie.poster}`}
-                                                alt={movie.title}
-                                                className={
-                                                    styles.moviePoster
-                                                }
-
-                                                onError={(event) => {
-                                                    event.currentTarget.style.display =
-                                                        "none";
-                                                }}
-                                            />
-
-                                        </div>
-
+                                {visibleMovies.map(
+                                    (movie) => (
 
                                         <div
                                             className={
-                                                styles.movieInfo
+                                                styles.movieCard
                                             }
+                                            key={movie.id}
                                         >
 
-                                            <h3>
-                                                {movie.title}
-                                            </h3>
-
-                                            <p
+                                            <div
                                                 className={
-                                                    styles.movieMeta
+                                                    styles.posterWrapper
                                                 }
                                             >
-                                                {movie.genre} |{" "}
-                                                {movie.language}
-                                            </p>
 
-                                            <p
+                                                <img
+                                                    src={`${API_URL}${movie.poster}`}
+                                                    alt={
+                                                        movie.title
+                                                    }
+                                                    className={
+                                                        styles.moviePoster
+                                                    }
+                                                    onError={(
+                                                        event
+                                                    ) => {
+                                                        event.currentTarget.style.display =
+                                                            "none";
+                                                    }}
+                                                />
+
+                                            </div>
+
+
+                                            <div
                                                 className={
-                                                    styles.description
+                                                    styles.movieInfo
                                                 }
                                             >
-                                                {movie.description}
-                                            </p>
 
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    handleBookNow(
-                                                        movie.id
-                                                    )
-                                                }
-                                            >
-                                                Book Now
-                                            </button>
+                                                <h3>
+                                                    {movie.title}
+                                                </h3>
+
+
+                                                <p
+                                                    className={
+                                                        styles.movieMeta
+                                                    }
+                                                >
+                                                    {movie.genre} |{" "}
+                                                    {movie.language}
+                                                </p>
+
+
+                                                <p
+                                                    className={
+                                                        styles.description
+                                                    }
+                                                >
+                                                    {
+                                                        movie.description
+                                                    }
+                                                </p>
+
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleBookNow(
+                                                            movie.id
+                                                        )
+                                                    }
+                                                >
+                                                    Book Now
+                                                </button>
+
+                                            </div>
 
                                         </div>
 
-                                    </div>
-
-                                ))}
+                                    )
+                                )}
 
                             </div>
 
 
-                            {/* ================= VIEW ALL ================= */}
+                            {/* VIEW ALL */}
 
-                            {movies.length > 4 && (
+                            {!search &&
+                                movies.length > 4 && (
 
-                                <div
-                                    className={
-                                        styles.viewAllContainer
-                                    }
-                                >
-
-                                    <button
-                                        type="button"
+                                    <div
                                         className={
-                                            styles.viewAllButton
-                                        }
-                                        onClick={() =>
-                                            setShowAll(!showAll)
+                                            styles.viewAllContainer
                                         }
                                     >
-                                        {showAll
-                                            ? "Show Less"
-                                            : "View All Movies"}
-                                    </button>
 
-                                </div>
+                                        <button
+                                            type="button"
+                                            className={
+                                                styles.viewAllButton
+                                            }
+                                            onClick={() =>
+                                                setShowAll(
+                                                    !showAll
+                                                )
+                                            }
+                                        >
+                                            {showAll
+                                                ? "Show Less"
+                                                : "View All Movies"}
+                                        </button>
 
-                            )}
+                                    </div>
+
+                                )}
 
                         </>
 
@@ -240,13 +567,23 @@ function Home() {
             </section>
 
 
-            {/* ================= FOOTER ================= */}
+            {/* =========================
+                FOOTER
+            ========================= */}
 
             <footer className={styles.footer}>
 
-                <div className={styles.footerContainer}>
+                <div
+                    className={
+                        styles.footerContainer
+                    }
+                >
 
-                    <div className={styles.footerColumn}>
+                    <div
+                        className={
+                            styles.footerColumn
+                        }
+                    >
 
                         <h3>
                             🎬 Movie Ticket Booking
@@ -261,9 +598,15 @@ function Home() {
                     </div>
 
 
-                    <div className={styles.footerColumn}>
+                    <div
+                        className={
+                            styles.footerColumn
+                        }
+                    >
 
-                        <h3>Quick Links</h3>
+                        <h3>
+                            Quick Links
+                        </h3>
 
                         <button
                             type="button"
@@ -290,12 +633,19 @@ function Home() {
                     </div>
 
 
-                    <div className={styles.footerColumn}>
+                    <div
+                        className={
+                            styles.footerColumn
+                        }
+                    >
 
-                        <h3>Contact</h3>
+                        <h3>
+                            Contact
+                        </h3>
 
                         <p>
-                            Email: support@movieticket.com
+                            Email:
+                            support@movieticket.com
                         </p>
 
                         <p>
@@ -307,7 +657,11 @@ function Home() {
                 </div>
 
 
-                <div className={styles.footerBottom}>
+                <div
+                    className={
+                        styles.footerBottom
+                    }
+                >
 
                     <p>
                         © 2026 Movie Ticket Booking.
