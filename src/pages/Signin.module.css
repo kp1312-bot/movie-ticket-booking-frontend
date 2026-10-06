@@ -126,6 +126,39 @@
 }
 
 
+/* Forgot Password */
+
+.forgotPassword {
+    text-align: right;
+
+    margin: -5px 0 18px;
+}
+
+
+.forgotPassword button {
+    background: none;
+
+    border: none;
+
+    padding: 4px 0;
+
+    color: #e50914;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+
+.forgotPassword button:hover {
+    text-decoration: underline;
+}
+
+
 /* Signin button */
 
 .signinButton {
@@ -198,8 +231,18 @@
 }
 
 
-.signupText span {
+/* Signup button */
+
+.signupText button {
+    background: none;
+
+    border: none;
+
+    padding: 0;
+
     color: #e50914;
+
+    font-size: inherit;
 
     font-weight: bold;
 
@@ -207,8 +250,20 @@
 }
 
 
-.signupText span:hover {
+.signupText button:hover {
     text-decoration: underline;
+}
+
+
+/* Keyboard Focus */
+
+.forgotPassword button:focus-visible,
+.signupText button:focus-visible,
+.signinButton:focus-visible,
+.inputGroup input:focus-visible {
+    outline: 3px solid #e50914;
+
+    outline-offset: 3px;
 }
 
 
@@ -229,3 +284,4 @@
     }
 
 }
+

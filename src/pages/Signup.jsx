@@ -34,9 +34,8 @@ function Signup() {
 
         try {
 
-            const response = await api.post(
-                "signup/",
-                formData
+            console.log("SIGNUP DATA:",formData);
+            const response = await api.post("signup/",formData
             );
 
             setMessage(

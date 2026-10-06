@@ -9,6 +9,8 @@ import MyBookings from "./pages/MyBookings";
 import BookingSummary from "./pages/BookingSuccess";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import Payment from "./pages/Payment";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword"
 
 
 function App() {
@@ -51,6 +53,9 @@ function App() {
 
                 <Route path="/booking-confirmation" element={<BookingConfirmation/>}/>
                 <Route path="/payment" element={<Payment/>}/>
+                <Route path="/forgot-password"element={<ForgotPassword />}/>
+
+                <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />}/>
 
                 
 
